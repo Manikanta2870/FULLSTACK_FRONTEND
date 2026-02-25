@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css';
+import './ElectionObserverDashboard.css';
 
-function AdminDashboard({ onLogout }) {
+function ElectionObserverDashboard({ onLogout }) {
   const navigate = useNavigate();
 
   const handleSwitchRole = () => {
@@ -12,9 +12,9 @@ function AdminDashboard({ onLogout }) {
   };
 
   return (
-    <div className="admin-dashboard">
-        {/* Header */}
-        <header className="portal-header">
+    <div className="observer-dashboard">
+      {/* Header */}
+      <header className="portal-header">
         <div className="header-left">
           <div className="header-logo">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,12 +24,12 @@ function AdminDashboard({ onLogout }) {
           </div>
           <div className="header-info">
             <h1 className="header-title">Election Monitoring System</h1>
-            <p className="header-subtitle">Ensuring transparency and integrity</p>
+            <p className="header-subtitle">Election Observer Portal</p>
           </div>
         </div>
         
         <div className="header-right">
-          <span className="role-badge">Admin</span>
+          <span className="role-badge">Election Observer</span>
           <button className="switch-role-btn" onClick={handleSwitchRole}>
             <span className="icon">⇄</span> Switch Role
           </button>
@@ -42,8 +42,8 @@ function AdminDashboard({ onLogout }) {
           {/* Page Header */}
           <div className="page-header">
             <div className="page-title-section">
-              <h2 className="page-title">Admin Dashboard</h2>
-              <p className="page-description">System management and oversight</p>
+              <h2 className="page-title">Election Observer Dashboard</h2>
+              <p className="page-description">Monitor polling stations and election activities</p>
             </div>
             <button className="status-btn online">
               System Status: Online
@@ -54,52 +54,52 @@ function AdminDashboard({ onLogout }) {
           <div className="stats-cards">
             <div className="stat-card">
               <div className="stat-content">
-                <h3 className="stat-label">System Uptime</h3>
-                <p className="stat-value">99.8%</p>
-              </div>
-              <div className="stat-icon green">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M 3 12 h 18 M 12 3 v 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" fill="none"/>
-                </svg>
-              </div>
-            </div>
-
-            <div className="stat-card">
-              <div className="stat-content">
-                <h3 className="stat-label">Active Users</h3>
-                <p className="stat-value">1247</p>
+                <h3 className="stat-label">Polling Stations</h3>
+                <p className="stat-value">347</p>
               </div>
               <div className="stat-icon blue">
                 <svg viewBox="0 0 24 24" fill="none">
                   <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
                   <path d="M 3 21 v -2 a 4 4 0 0 1 4 -4 h 4 a 4 4 0 0 1 4 4 v 2" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M 16 11 h 6 M 19 8 v 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M 16 3 h 6 v 6 h -6 Z" stroke="currentColor" strokeWidth="2"/>
                 </svg>
               </div>
             </div>
 
             <div className="stat-card">
               <div className="stat-content">
-                <h3 className="stat-label">Active Elections</h3>
-                <p className="stat-value">3</p>
+                <h3 className="stat-label">Stations Monitored</h3>
+                <p className="stat-value">328</p>
               </div>
-              <div className="stat-icon purple">
+              <div className="stat-icon green">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M 12 2 L 15.09 8.26 L 22 9.27 L 17 14.14 L 18.18 21.02 L 12 17.77 L 5.82 21.02 L 7 14.14 L 2 9.27 L 8.91 8.26 L 12 2" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M 12 2 C 6.48 2 2 6.48 2 12 C 2 17.52 6.48 22 12 22 C 17.52 22 22 17.52 22 12 C 22 6.48 17.52 2 12 2 Z" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M 10 14 l 2 2 l 4 -5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
             </div>
 
             <div className="stat-card">
               <div className="stat-content">
-                <h3 className="stat-label">Avg Response Time</h3>
-                <p className="stat-value">1.2s</p>
+                <h3 className="stat-label">Reported Issues</h3>
+                <p className="stat-value">12</p>
               </div>
               <div className="stat-icon orange">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M 12 6 v 6 l 4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M 12 2 L 2 20 h 20 Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M 12 9 v 4 M 12 17 v 0.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-content">
+                <h3 className="stat-label">Coverage</h3>
+                <p className="stat-value">94.5%</p>
+              </div>
+              <div className="stat-icon purple">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M 12 2 L 22 8 v 6 C 22 18 12 22 12 22 C 12 22 2 18 2 14 V 8 L 12 2 Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
                 </svg>
               </div>
             </div>
@@ -110,4 +110,4 @@ function AdminDashboard({ onLogout }) {
   );
 }
 
-export default AdminDashboard;
+export default ElectionObserverDashboard;

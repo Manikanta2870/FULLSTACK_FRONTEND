@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Dashboard from './Dashboard/Dashboard'
 import CitizenPortal from './Citizen/CitizenPortal'
 import AdminDashboard from './Admin/AdminDashboard'
+import DataAnalystsDashboard from './DataAnalysts/DataAnalystsDashboard'
+import ElectionObserverDashboard from './ElectionObserver/ElectionObserverDashboard'
 import './App.css'
 
 function App() {
@@ -53,7 +55,7 @@ function App() {
           path="/dataanalysts" 
           element={
             userRole === 'dataanalysts' ? (
-              <AdminDashboard onLogout={handleLogout} />
+              <DataAnalystsDashboard onLogout={handleLogout} />
             ) : (
               <Navigate to="/" replace />
             )
@@ -63,7 +65,7 @@ function App() {
           path="/electionobserver" 
           element={
             userRole === 'electionobserver' ? (
-              <AdminDashboard onLogout={handleLogout} />
+              <ElectionObserverDashboard onLogout={handleLogout} />
             ) : (
               <Navigate to="/" replace />
             )
