@@ -1,42 +1,80 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from './Dashboard/Dashboard'
 import CitizenPortal from './Citizen/CitizenPortal'
 import AdminDashboard from './Admin/AdminDashboard'
 import './App.css'
 
 function App() {
-  const [currentView, setCurrentView] = useState('dashboard')
   const [userRole, setUserRole] = useState(null)
 
   const handleLogin = (role) => {
     setUserRole(role)
-    
-    // Navigate to appropriate portal based on role
-    if (role === 'citizen') {
-      setCurrentView('citizen')
-    } else if (role === 'admin') {
-      setCurrentView('admin')
-    } else if (role === 'dataanalysts') {
-      setCurrentView('dataanalysts')
-    } else if (role === 'electionobserver') {
-      setCurrentView('electionobserver')
-    }
   }
 
   const handleLogout = () => {
     setUserRole(null)
-    setCurrentView('dashboard')
   }
 
   return (
-    <>
-      {currentView === 'dashboard' && <Dashboard onLogin={handleLogin} />}
-      {currentView === 'citizen' && <CitizenPortal onLogout={handleLogout} />}
-      {currentView === 'admin' && <AdminDashboard onLogout={handleLogout} />}
-      {/* Add other role portals here as needed */}
-    </>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/home" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/about" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/elections" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/results" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/resources" element={<Dashboard onLogin={handleLogin} />} />
+        <Route path="/contact" element={<Dashboard onLogin={handleLogin} />} />
+        
+        {/* Protected Routes - Require login */}
+        <Route 
+          path="/citizen" 
+          element={
+            userRole === 'citizen' ? (
+              <CitizenPortal onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+        <Route 
+          path="/admin" 
+          element={
+            userRole === 'admin' ? (
+              <AdminDashboard onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+        <Route 
+          path="/dataanalysts" 
+          element={
+            userRole === 'dataanalysts' ? (
+              <AdminDashboard onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+        <Route 
+          path="/electionobserver" 
+          element={
+            userRole === 'electionobserver' ? (
+              <AdminDashboard onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+        
+        {/* Catch all - redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   )
 }
 
 export default App
-

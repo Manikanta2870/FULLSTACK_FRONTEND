@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import './Dashboard.css';
 
 function Dashboard({ onLogin }) {
+  const navigate = useNavigate();
   const [role, setRole] = useState('citizen');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [aadhaarId, setAadhaarId] = useState('');
@@ -30,11 +33,12 @@ function Dashboard({ onLogin }) {
     // Validate login credentials
     if (role === 'citizen') {
       // Demo validation for citizen
-      if (aadhaarId === '123456789012' && otp === '123456') {
+      if (username === 'citizen' && aadhaarId === '123456789012' && otp === '123456') {
         console.log('Citizen login successful');
         onLogin(role);
+        navigate('/citizen');
       } else {
-        alert('Invalid Aadhaar or OTP. Please use demo credentials.');
+        alert('Invalid username, Aadhaar or OTP. Please use demo credentials.');
       }
     } else {
       // Demo validation for other roles
@@ -49,6 +53,7 @@ function Dashboard({ onLogin }) {
           password === validCredentials[role].password) {
         console.log(`${role} login successful`);
         onLogin(role);
+        navigate(`/${role}`);
       } else {
         alert('Invalid email or password. Please use demo credentials.');
       }
@@ -56,45 +61,36 @@ function Dashboard({ onLogin }) {
   };
 
   return (
-    <div className="dashboard-container">
-      {/* Left Side - Election Commission Info */}
-      <div className="info-section">
-        <div className="info-content">
-          <h1 className="commission-title">Election Commission</h1>
-          <h2 className="system-title">Monitoring System</h2>
-          
-          <div className="commission-info">
-            <p className="tagline">Ensuring transparency, security, and integrity in every vote</p>
-            
-            <div className="features">
-              <div className="feature-item">
-                <span className="feature-icon">🔐</span>
-                <span>Secure & Transparent</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">📊</span>
-                <span>Real-time Monitoring</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">✓</span>
-                <span>Verified Results</span>
-              </div>
-            </div>
-            
-            <div className="commission-details">
-              <p>Established to uphold democratic principles and ensure free, fair, and transparent elections.</p>
-              <p className="mission">Our mission is to maintain the integrity of the electoral process through advanced monitoring and reporting systems.</p>
-            </div>
+    <>
+      {/* Navigation Bar */}
+      <nav className="dashboard-navbar">
+        <div className="navbar-brand">
+          <span className="brand-name">Election Monitoring System</span>
+        </div>
+      </nav>
+
+      <div className="dashboard-container">
+        {/* Left Side - Logo Panel */}
+        <div className="login-hero">
+          <div className="hero-logo" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="img" aria-label="Election monitoring logo">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" strokeWidth="4" />
+              <circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" strokeWidth="2" />
+              <path d="M 40 58 L 54 72 L 82 46" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M 60 18 L 60 30" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              <path d="M 60 90 L 60 102" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              <path d="M 18 60 L 30 60" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              <path d="M 90 60 L 102 60" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+            </svg>
           </div>
-          
-          <div className="copyright">
-            <p>© Copyright {new Date().getFullYear()} by Election Commission. All Rights Reserved.</p>
+          <div className="hero-caption">
+            <h1>Election Monitoring System</h1>
+            <p>Secure and transparent election oversight</p>
           </div>
         </div>
-      </div>
 
-      {/* Right Side - Login Form */}
-      <div className="login-section">
+        {/* Right Side - Login Form */}
+        <div className="login-section">
         <div className="login-card">
           <div className="login-header">
             <h2>Login</h2>
@@ -110,6 +106,7 @@ function Dashboard({ onLogin }) {
             <div className="demo-content">
               {role === 'citizen' && (
                 <div className="credential-info">
+                  <p><strong>Username:</strong> citizen</p>
                   <p><strong>Aadhaar:</strong> 123456789012</p>
                   <p><strong>OTP:</strong> 123456</p>
                 </div>
@@ -153,9 +150,20 @@ function Dashboard({ onLogin }) {
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
-            {/* Citizen Login - Aadhaar & OTP */}
+            {/* Citizen Login - Username, Aadhaar & OTP */}
             {role === 'citizen' && (
               <>
+                <div className="form-group">
+                  <label htmlFor="username">Username *</label>
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
                 <div className="form-group">
                   <label htmlFor="aadhaar">Aadhaar Number *</label>
                   <input
@@ -275,6 +283,7 @@ function Dashboard({ onLogin }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

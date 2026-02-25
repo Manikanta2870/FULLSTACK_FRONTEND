@@ -1,13 +1,77 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
 function AdminDashboard({ onLogout }) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('systemLogs');
+  const [profileData, setProfileData] = useState({
+    name: 'Citizen User',
+    aadhaar: '123456789012',
+    phone: '9876543210',
+    newPhone: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [profileErrors, setProfileErrors] = useState({ phone: '', password: '' });
+  const [profileMessages, setProfileMessages] = useState({ phone: '', password: '' });
 
   const handleSwitchRole = () => {
     if (window.confirm('Are you sure you want to logout?')) {
       onLogout();
+      navigate('/');
     }
+  };
+
+  const maskAadhaar = (value) => {
+    const digits = value.replace(/\D/g, '');
+    const lastFour = digits.slice(-4).padStart(4, '0');
+    return `XXXX-XXXX-${lastFour}`;
+  };
+
+  const handleProfilePhoneUpdate = () => {
+    const nextPhone = profileData.newPhone.replace(/\D/g, '');
+    setProfileMessages((prev) => ({ ...prev, phone: '' }));
+
+    if (!/^\d{10}$/.test(nextPhone)) {
+      setProfileErrors((prev) => ({ ...prev, phone: 'Phone must be 10 digits.' }));
+      return;
+    }
+
+    setProfileData((prev) => ({
+      ...prev,
+      phone: nextPhone,
+      newPhone: ''
+    }));
+    setProfileErrors((prev) => ({ ...prev, phone: '' }));
+    setProfileMessages((prev) => ({ ...prev, phone: 'Phone number updated.' }));
+  };
+
+  const handleProfilePasswordChange = () => {
+    setProfileMessages((prev) => ({ ...prev, password: '' }));
+
+    if (!profileData.newPassword || !profileData.confirmPassword) {
+      setProfileErrors((prev) => ({ ...prev, password: 'Enter and confirm your new password.' }));
+      return;
+    }
+
+    if (profileData.newPassword.length < 6) {
+      setProfileErrors((prev) => ({ ...prev, password: 'Password must be at least 6 characters.' }));
+      return;
+    }
+
+    if (profileData.newPassword !== profileData.confirmPassword) {
+      setProfileErrors((prev) => ({ ...prev, password: 'Passwords do not match.' }));
+      return;
+    }
+
+    setProfileErrors((prev) => ({ ...prev, password: '' }));
+    setProfileMessages((prev) => ({ ...prev, password: 'Password updated.' }));
+    setProfileData((prev) => ({
+      ...prev,
+      newPassword: '',
+      confirmPassword: ''
+    }));
   };
 
   const systemLogs = [
@@ -21,8 +85,8 @@ function AdminDashboard({ onLogout }) {
 
   return (
     <div className="admin-dashboard">
-      {/* Header */}
-      <header className="portal-header">
+        {/* Header */}
+        <header className="portal-header">
         <div className="header-left">
           <div className="header-logo">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,6 +202,12 @@ function AdminDashboard({ onLogout }) {
             >
               System Logs
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
+              onClick={() => setActiveTab('profile')}
+            >
+              Profile
+            </button>
           </div>
 
           {/* Tab Content */}
@@ -182,6 +252,98 @@ function AdminDashboard({ onLogout }) {
               <div className="content-placeholder">
                 <h3>Elections Management</h3>
                 <p>Create and manage elections</p>
+              </div>
+            )}
+
+            {activeTab === 'profile' && (
+              <div className="profile-section">
+                <div className="section-header">
+                  <div className="section-icon">PR</div>
+                  <div>
+                    <h3 className="section-title">Profile</h3>
+                    <p className="section-subtitle">Manage your account details</p>
+                  </div>
+                </div>
+
+                <div className="profile-grid">
+                  <div className="profile-card">
+                    <h4 className="profile-card-title">View Basic Details</h4>
+                    <div className="profile-row">
+                      <span className="profile-label">System Title</span>
+                      <span className="profile-value">Election Monitoring System</span>
+                    </div>
+                    <div className="profile-row">
+                      <span className="profile-label">Citizen Name</span>
+                      <span className="profile-value">{profileData.name}</span>
+                    </div>
+                    <div className="profile-row">
+                      <span className="profile-label">Aadhaar</span>
+                      <span className="profile-value">{maskAadhaar(profileData.aadhaar)}</span>
+                    </div>
+                  </div>
+
+                  <div className="profile-card">
+                    <h4 className="profile-card-title">Update Phone Number</h4>
+                    <label className="profile-input-label" htmlFor="currentPhone">Current Phone</label>
+                    <input
+                      id="currentPhone"
+                      className="profile-input" 
+                      type="text"
+                      value={profileData.phone}
+                      disabled
+                    />
+                    <label className="profile-input-label" htmlFor="newPhone">New Phone Number</label>
+                    <input
+                      id="newPhone"
+                      className="profile-input"
+                      type="text"
+                      value={profileData.newPhone}
+                      onChange={(e) => {
+                        setProfileData((prev) => ({ ...prev, newPhone: e.target.value }));
+                        setProfileErrors((prev) => ({ ...prev, phone: '' }));
+                      }}
+                      placeholder="Enter 10-digit number"
+                    />
+                    {profileErrors.phone && <p className="profile-error">{profileErrors.phone}</p>}
+                    {profileMessages.phone && <p className="profile-message">{profileMessages.phone}</p>}
+                    <button className="profile-btn" onClick={handleProfilePhoneUpdate}>Update Phone</button>
+                  </div>
+
+                  <div className="profile-card">
+                    <h4 className="profile-card-title">Change Password</h4>
+                    <label className="profile-input-label" htmlFor="newPassword">Create Password</label>
+                    <input
+                      id="newPassword"
+                      className="profile-input"
+                      type="password"
+                      value={profileData.newPassword}
+                      onChange={(e) => {
+                        setProfileData((prev) => ({ ...prev, newPassword: e.target.value }));
+                        setProfileErrors((prev) => ({ ...prev, password: '' }));
+                      }}
+                      placeholder="Enter new password"
+                    />
+                    <label className="profile-input-label" htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                      id="confirmPassword"
+                      className="profile-input"
+                      type="password"
+                      value={profileData.confirmPassword}
+                      onChange={(e) => {
+                        setProfileData((prev) => ({ ...prev, confirmPassword: e.target.value }));
+                        setProfileErrors((prev) => ({ ...prev, password: '' }));
+                      }}
+                      placeholder="Confirm new password"
+                    />
+                    {profileErrors.password && <p className="profile-error">{profileErrors.password}</p>}
+                    {profileMessages.password && <p className="profile-message">{profileMessages.password}</p>}
+                    <button className="profile-btn" onClick={handleProfilePasswordChange}>Change Password</button>
+                  </div>
+                </div>
+
+                <div className="profile-actions">
+                  <button className="profile-logout-btn" onClick={handleSwitchRole}>Logout</button>
+                </div>
               </div>
             )}
           </div>

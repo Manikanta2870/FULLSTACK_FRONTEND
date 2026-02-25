@@ -4,20 +4,160 @@
   box-sizing: border-box;
 }
 
+/* Navigation Bar */
+.dashboard-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #1a1f2e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+  border-bottom: 2px solid #FF9F43;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #FF9F43;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+}
+
+.brand-name {
+  color: #FF9F43;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #a0a0a0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #FF9F43;
+  background: rgba(255, 159, 67, 0.1);
+}
+
+.nav-link.active {
+  color: #FF9F43;
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: #FF9F43;
+  border-radius: 2px;
+}
+
 .dashboard-container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 100%;
   overflow: hidden;
+  margin-top: 70px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  background: #f5f7fa;
+  animation: pageEnter 0.5s ease both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left Side - Logo Panel */
+.login-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 30px;
+  background: linear-gradient(135deg, #f3f5ff 0%, #e9ecff 100%);
+  border-right: 1px solid #e3e7f5;
+}
+
+.hero-logo {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #667eea;
+  box-shadow: 0 16px 40px rgba(102, 126, 234, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-logo svg {
+  width: 160px;
+  height: 160px;
+}
+
+.hero-logo:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 50px rgba(102, 126, 234, 0.28);
+}
+
+.hero-caption {
+  text-align: center;
+  max-width: 360px;
+}
+
+.hero-caption h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.hero-caption p {
+  color: #6c757d;
+  font-size: 0.95rem;
 }
 
 /* Left Side - Info Section */
 .info-section {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1f2e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +165,7 @@
   color: white;
   position: relative;
   overflow: hidden;
+  border-right: 2px solid #FF9F43;
 }
 
 .info-section::before {
@@ -158,6 +299,18 @@
   width: 100%;
   max-width: 420px;
   margin: auto 0;
+  animation: cardFloat 0.5s ease both;
+}
+
+@keyframes cardFloat {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .login-header {
@@ -484,21 +637,21 @@
     height: auto;
   }
 
-  .info-section {
+  .login-hero {
     min-height: 40vh;
     padding: 25px 20px;
+    border-right: none;
+    border-bottom: 1px solid #e3e7f5;
   }
 
-  .commission-title {
-    font-size: 1.8rem;
+  .hero-logo {
+    width: 200px;
+    height: 200px;
   }
 
-  .system-title {
-    font-size: 1.2rem;
-  }
-
-  .features {
-    gap: 10px;
+  .hero-logo svg {
+    width: 120px;
+    height: 120px;
   }
 
   .login-section {
