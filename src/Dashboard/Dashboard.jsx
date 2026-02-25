@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Dashboard.css';
 
-function Dashboard() {
+function Dashboard({ onLogin }) {
   const [role, setRole] = useState('citizen');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,10 +26,32 @@ function Dashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate login credentials
     if (role === 'citizen') {
-      console.log('Citizen login:', { aadhaarId, otp });
+      // Demo validation for citizen
+      if (aadhaarId === '123456789012' && otp === '123456') {
+        console.log('Citizen login successful');
+        onLogin(role);
+      } else {
+        alert('Invalid Aadhaar or OTP. Please use demo credentials.');
+      }
     } else {
-      console.log(`${role} login:`, { email, password, rememberMe });
+      // Demo validation for other roles
+      const validCredentials = {
+        admin: { email: 'admin@election.gov', password: 'Admin@123' },
+        dataanalysts: { email: 'analyst@election.gov', password: 'Analyst@123' },
+        electionobserver: { email: 'observer@election.gov', password: 'Observer@123' }
+      };
+
+      if (validCredentials[role] && 
+          email === validCredentials[role].email && 
+          password === validCredentials[role].password) {
+        console.log(`${role} login successful`);
+        onLogin(role);
+      } else {
+        alert('Invalid email or password. Please use demo credentials.');
+      }
     }
   };
 
@@ -38,16 +60,6 @@ function Dashboard() {
       {/* Left Side - Election Commission Info */}
       <div className="info-section">
         <div className="info-content">
-          <div className="commission-logo">
-            <div className="logo-icon">
-              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="20" y="30" width="60" height="50" rx="5" stroke="white" strokeWidth="3" fill="none"/>
-                <path d="M 35 50 L 45 60 L 65 40" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="2" fill="none"/>
-              </svg>
-            </div>
-          </div>
-          
           <h1 className="commission-title">Election Commission</h1>
           <h2 className="system-title">Monitoring System</h2>
           
@@ -89,22 +101,55 @@ function Dashboard() {
             <p>Access your monitoring dashboard</p>
           </div>
 
+          {/* Demo Credentials Info */}
+          <div className="demo-credentials">
+            <div className="demo-header">
+              <span className="demo-icon">🔑</span>
+              <span className="demo-title">Demo Credentials</span>
+            </div>
+            <div className="demo-content">
+              {role === 'citizen' && (
+                <div className="credential-info">
+                  <p><strong>Aadhaar:</strong> 123456789012</p>
+                  <p><strong>OTP:</strong> 123456</p>
+                </div>
+              )}
+              {role === 'admin' && (
+                <div className="credential-info">
+                  <p><strong>Email:</strong> admin@election.gov</p>
+                  <p><strong>Password:</strong> Admin@123</p>
+                </div>
+              )}
+              {role === 'dataanalysts' && (
+                <div className="credential-info">
+                  <p><strong>Email:</strong> analyst@election.gov</p>
+                  <p><strong>Password:</strong> Analyst@123</p>
+                </div>
+              )}
+              {role === 'electionobserver' && (
+                <div className="credential-info">
+                  <p><strong>Email:</strong> observer@election.gov</p>
+                  <p><strong>Password:</strong> Observer@123</p>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Role Selection */}
           <div className="role-selector">
-            <label className="role-label">Select Your Role</label>
-            <div className="role-buttons">
+            <label className="role-label" htmlFor="role-select">Select Your Role</label>
+            <select 
+              id="role-select"
+              className="role-dropdown"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
               {roles.map((r) => (
-                <button
-                  key={r.value}
-                  type="button"
-                  className={`role-button ${role === r.value ? 'active' : ''}`}
-                  onClick={() => setRole(r.value)}
-                >
-                  <span className="role-icon">{r.icon}</span>
-                  <span className="role-text">{r.label}</span>
-                </button>
+                <option key={r.value} value={r.value}>
+                  {r.icon} {r.label}
+                </option>
               ))}
-            </div>
+            </select>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
