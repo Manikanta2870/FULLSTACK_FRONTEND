@@ -84,6 +84,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  position: relative;
 }
 
 .role-badge {
@@ -94,6 +95,83 @@
   font-size: 0.85rem;
   font-weight: 500;
   backdrop-filter: blur(10px);
+}
+
+.profile-trigger {
+  cursor: pointer;
+  color: white;
+}
+
+.admin-profile-popout {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  padding: 16px;
+  z-index: 250;
+  color: #1f2937;
+}
+
+.admin-popout-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.admin-popout-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 10px 0 14px;
+}
+
+.admin-image-placeholder {
+  width: 100%;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 20px 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
+  background: #f8fafc;
+}
+
+.admin-basic-info p,
+.admin-meta-info p {
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+}
+
+.admin-basic-info,
+.admin-meta-info {
+  margin-bottom: 10px;
+}
+
+.admin-profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-action-btn {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-action-btn:hover {
+  background: #f8fafc;
 }
 
 .switch-role-btn {
@@ -550,6 +628,252 @@
   word-break: break-word;
 }
 
+.section-header.compact {
+  margin-bottom: 18px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.users-table th,
+.users-table td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid #eceff3;
+  vertical-align: middle;
+}
+
+.users-table th {
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 0.84rem;
+}
+
+.users-table td {
+  color: #374151;
+}
+
+.strong-cell {
+  font-weight: 600;
+  color: #111827;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.chip.neutral {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.chip.status.active {
+  background: #111827;
+  color: #ffffff;
+}
+
+.chip.status.pending {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.chip.status.ongoing {
+  background: #111827;
+  color: #ffffff;
+}
+
+.chip.status.upcoming,
+.chip.status.completed {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.inline-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.small-btn {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.small-btn.light {
+  background: #ffffff;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.small-btn.dark {
+  background: #111827;
+  color: #ffffff;
+}
+
+.small-btn.danger {
+  background: #e11d48;
+  color: #ffffff;
+}
+
+.incident-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.incident-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  background: #ffffff;
+}
+
+.incident-top-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.incident-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.level-badge {
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.level-badge.low {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.level-badge.medium {
+  background: #111827;
+  color: #ffffff;
+}
+
+.level-badge.high {
+  background: #f43f5e;
+  color: #ffffff;
+}
+
+.level-badge.critical {
+  background: #e11d48;
+  color: #ffffff;
+}
+
+.incident-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.incident-time {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.incident-description {
+  margin-top: 10px;
+  color: #374151;
+  font-size: 0.88rem;
+}
+
+.incident-user {
+  margin-top: 6px;
+  color: #4b5563;
+  font-size: 0.84rem;
+}
+
+.election-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.election-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  background: #ffffff;
+}
+
+.election-main {
+  flex: 1;
+}
+
+.election-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.election-title-row h4 {
+  font-size: 1.06rem;
+  margin: 0;
+  color: #1f2937;
+}
+
+.election-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.meta-label {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.meta-label.spaced {
+  margin-top: 10px;
+}
+
+.meta-value {
+  font-size: 0.88rem;
+  color: #374151;
+  margin: 2px 0 0 0;
+}
+
+.meta-value.strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
 /* Content Placeholder */
 .content-placeholder {
   text-align: center;
@@ -602,6 +926,13 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
+    align-items: stretch;
+  }
+
+  .admin-profile-popout {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
   }
 
   .switch-role-btn {
@@ -648,6 +979,14 @@
   .log-entry {
     flex-direction: column;
     gap: 4px;
+  }
+
+  .election-card {
+    flex-direction: column;
+  }
+
+  .election-grid {
+    grid-template-columns: 1fr;
   }
 }
 
