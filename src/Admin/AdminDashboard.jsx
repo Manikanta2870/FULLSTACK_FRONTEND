@@ -158,6 +158,46 @@ function AdminDashboard({ onLogout }) {
             <p className="header-subtitle">Ensuring transparency and integrity</p>
           </div>
         </div>
+        
+        {/* Header Navigation */}
+        <nav className="header-navigation">
+          <button 
+            className={`nav-item ${activeTab === 'userManagement' ? 'active' : ''}`}
+            onClick={() => setActiveTab('userManagement')}
+            title="Manage system users and their permissions"
+          >
+            👥 User Management
+          </button>
+          <button 
+            className={`nav-item ${activeTab === 'security' ? 'active' : ''}`}
+            onClick={() => setActiveTab('security')}
+            title="Configure security policies"
+          >
+            🔒 Security
+          </button>
+          <button 
+            className={`nav-item ${activeTab === 'elections' ? 'active' : ''}`}
+            onClick={() => setActiveTab('elections')}
+            title="Manage election data"
+          >
+            🗳️ Elections
+          </button>
+          <button 
+            className={`nav-item ${activeTab === 'systemLogs' ? 'active' : ''}`}
+            onClick={() => setActiveTab('systemLogs')}
+            title="View system activity logs"
+          >
+            📋 System Logs
+          </button>
+          <button 
+            className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
+            onClick={() => setActiveTab('profile')}
+            title="Manage your profile"
+          >
+            👤 Profile
+          </button>
+        </nav>
+        
         <div className="header-right">
           <button
             type="button"
