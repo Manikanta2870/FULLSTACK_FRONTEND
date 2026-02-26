@@ -1,35 +1,29 @@
-import React from 'react';
-
 function DistrictOverview({ district, lastUpdated }) {
-  const statusLabel = district.status === 'active' ? 'Active Polling' : 'Closed';
-  const statusClass = district.status === 'active' ? 'status-active' : 'status-closed';
-
   return (
     <div className="district-overview">
       <div className="overview-header">
         <div>
-          <h3>{district.name}</h3>
-          <p>Election Phase: {district.phase}</p>
+          <h2>{district.name}</h2>
+          <p className="overview-subtitle">{district.state} • {district.phase}</p>
         </div>
-        <span className={`district-status ${statusClass}`}>{statusLabel}</span>
+        <div className={`district-status ${district.status}`}>{district.status.toUpperCase()}</div>
       </div>
-
       <div className="overview-grid">
-        <div className="overview-card">
-          <span>Total Polling Stations</span>
-          <strong>{district.pollingStations.length}</strong>
+        <div className="overview-item">
+          <span className="overview-label">Observer</span>
+          <span className="overview-value">{district.observer}</span>
         </div>
-        <div className="overview-card">
-          <span>Total Registered Voters</span>
-          <strong>{district.registeredVoters.toLocaleString('en-IN')}</strong>
+        <div className="overview-item">
+          <span className="overview-label">Polling Stations</span>
+          <span className="overview-value">{district.pollingStations.length}</span>
         </div>
-        <div className="overview-card">
-          <span>Observer Assigned</span>
-          <strong>{district.observer}</strong>
+        <div className="overview-item">
+          <span className="overview-label">Registered Voters</span>
+          <span className="overview-value">{district.registeredVoters.toLocaleString()}</span>
         </div>
-        <div className="overview-card">
-          <span>Last Updated</span>
-          <strong>{lastUpdated.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</strong>
+        <div className="overview-item">
+          <span className="overview-label">Last Updated</span>
+          <span className="overview-value">{lastUpdated.toLocaleTimeString()}</span>
         </div>
       </div>
     </div>

@@ -1772,6 +1772,15 @@ function DistrictObserverDashboard({ onLogout }) {
               </svg>
               <span>Transparency and Monitoring</span>
             </button>
+            <button
+              className={`menu-tab ${activeTab === 'analytics' ? 'active' : ''}`}
+              onClick={() => setActiveTab('analytics')}
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3h4v18H3V3zm7 4h4v14h-4V7zm7-2h4v16h-4V5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>District Analytics</span>
+            </button>
           </nav>
 
           {activeTab === 'analysis' && (
@@ -1807,6 +1816,97 @@ function DistrictObserverDashboard({ onLogout }) {
                 notes={selectedDistrict.notes}
                 alerts={alerts}
               />
+            </div>
+          )}
+
+          {activeTab === 'analytics' && (
+            <div className="analytics-full-view">
+              <div className="analytics-grid">
+                <div className="analytics-card">
+                  <h3>Top 5 Districts by Turnout</h3>
+                  <div className="analytics-list">
+                    {districtsByState
+                      .map(d => ({
+                        name: d.name,
+                        turnout: d.pollingStations.length > 0 
+                          ? Math.round((d.pollingStations.reduce((sum, s) => sum + s.votesCast, 0) / (d.pollingStations.reduce((sum, s) => sum + s.registeredVoters, 0) || 1)) * 100)
+                          : 0
+                      }))
+                      .sort((a, b) => b.turnout - a.turnout)
+                      .slice(0, 5)
+                      .map((d, idx) => (
+                        <div key={idx} className="analytics-item">
+                          <span>{d.name}</span>
+                          <span className="turnout-badge">{d.turnout}%</span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+
+                <div className="analytics-card">
+                  <h3>State-wise District Count</h3>
+                  <div className="analytics-list">
+                    {stateOptions.map(state => {
+                      const count = districts.filter(d => d.state === state).length;
+                      return (
+                        <div key={state} className="analytics-item">
+                          <span>{state}</span>
+                          <span className="count-badge">{count}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="analytics-card">
+                  <h3>Overall Statistics</h3>
+                  <div className="stats-overview">
+                    <div className="stat-box">
+                      <div className="stat-value">{districts.length}</div>
+                      <div className="stat-label">Total Districts</div>
+                    </div>
+                    <div className="stat-box">
+                      <div className="stat-value">{stateOptions.length}</div>
+                      <div className="stat-label">States/UTs</div>
+                    </div>
+                    <div className="stat-box">
+                      <div className="stat-value">{districts.filter(d => d.status === 'active').length}</div>
+                      <div className="stat-label">Active Districts</div>
+                    </div>
+                    <div className="stat-box">
+                      <div className="stat-value">{Math.round(districts.reduce((sum, d) => sum + d.registeredVoters, 0) / 1000000)}M</div>
+                      <div className="stat-label">Total Voters</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="analytics-card">
+                  <h3>Gender Distribution ({selectedDistrict.name})</h3>
+                  <div className="gender-stats">
+                    <div className="gender-item">
+                      <span className="gender-label">Male</span>
+                      <div className="gender-bar">
+                        <div className="gender-fill male" style={{width: `${(selectedDistrict.maleVoters / selectedDistrict.registeredVoters) * 100}%`}}></div>
+                      </div>
+                      <span className="gender-count">{selectedDistrict.maleVoters}</span>
+                    </div>
+                    <div className="gender-item">
+                      <span className="gender-label">Female</span>
+                      <div className="gender-bar">
+                        <div className="gender-fill female" style={{width: `${(selectedDistrict.femaleVoters / selectedDistrict.registeredVoters) * 100}%`}}></div>
+                      </div>
+                      <span className="gender-count">{selectedDistrict.femaleVoters}</span>
+                    </div>
+                    <div className="gender-item">
+                      <span className="gender-label">Other</span>
+                      <div className="gender-bar">
+                        <div className="gender-fill other" style={{width: `${(selectedDistrict.otherVoters / selectedDistrict.registeredVoters) * 100}%`}}></div>
+                      </div>
+                      <span className="gender-count">{selectedDistrict.otherVoters}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
