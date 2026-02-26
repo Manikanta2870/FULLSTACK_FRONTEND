@@ -365,7 +365,8 @@ function AdminDashboard({ onLogout }) {
     }
   };
 
-  const isAdminUser = adminProfile.role.toLowerCase() === 'admin';
+  const normalizedAdminRole = adminProfile.role.toLowerCase();
+  const isAdminUser = ['admin', 'system administrator', 'super admin'].includes(normalizedAdminRole);
 
   const appendElectionAuditLog = (action) => {
     const timestamp = new Date().toLocaleString();
@@ -423,6 +424,41 @@ function AdminDashboard({ onLogout }) {
     setElectionAuditLogs([]);
     setIsElectionLoading(false);
     appendElectionAuditLog(`Opened management for ${details.title}`);
+  };
+
+  const handleCreateElectionManagement = () => {
+    const newElectionId = `ELEC-${Date.now()}`;
+    const newElection = {
+      id: newElectionId,
+      title: '',
+      status: 'upcoming',
+      electionDate: '',
+      registrationDeadline: '',
+      type: '',
+      turnout: '',
+      turnoutPercent: 0,
+      candidates: [],
+      observers: [],
+      analysts: [],
+      alerts: []
+    };
+
+    setIsElectionManagementOpen(true);
+    setIsElectionLoading(false);
+    setSelectedElectionId(newElectionId);
+    setManagedElection(newElection);
+    setManagedCandidates([]);
+    setManagedObservers([]);
+    setManagedAnalysts([]);
+    setManagedSecurityAlerts([]);
+    setCandidateNameInput('');
+    setCandidatePartyInput('');
+    setEditingCandidateId('');
+    setNewObserverInput('');
+    setNewAnalystInput('');
+    setElectionSaveError('');
+    setElectionAuditLogs([]);
+    appendElectionAuditLog('Opened create election form');
   };
 
   const handleCloseElectionManagement = () => {
@@ -897,6 +933,9 @@ function AdminDashboard({ onLogout }) {
                     <h3 className="section-title">Election Management</h3>
                     <p className="section-subtitle">Configure and monitor elections</p>
                   </div>
+                  <button type="button" className="small-btn dark" onClick={handleCreateElectionManagement}>
+                    Create Election
+                  </button>
                 </div>
 
                 {electionSaveSuccessMessage && (
