@@ -1562,7 +1562,31 @@ function DistrictObserverDashboard({ onLogout }) {
       complaints: [],
       incidents: ['Textile industry operations smooth.'],
       notes: ['Industrial worker participation good.']
-    }
+    },
+    // Additional districts for comprehensive coverage
+    { id: 'D-68', name: 'Nashik', state: 'Maharashtra', phase: 'Phase 1', observer: 'Harish Desai', status: 'active', registeredVoters: 43500, maleVoters: 22200, femaleVoters: 21000, otherVoters: 300, pollingStations: [{ id: 'PS-6801', name: 'City Center Hall', boothNo: 'MH-32', registeredVoters: 1150, votesCast: 820 }, { id: 'PS-6802', name: 'Nashik Road Center', boothNo: 'MH-36', registeredVoters: 1020, votesCast: 710 }], complaints: [], incidents: ['Wine industry coordination smooth.'], notes: ['Agricultural market participation good.'] },
+    { id: 'D-69', name: 'Aurangabad', state: 'Maharashtra', phase: 'Phase 2', observer: 'Priya Mishra', status: 'active', registeredVoters: 41800, maleVoters: 21400, femaleVoters: 20200, otherVoters: 200, pollingStations: [{ id: 'PS-6901', name: 'Heritage Area Center', boothNo: 'MH-40', registeredVoters: 1100, votesCast: 770 }, { id: 'PS-6902', name: 'Industrial Zone Hall', boothNo: 'MH-44', registeredVoters: 980, votesCast: 650 }], complaints: [], incidents: ['Tourist season management effective.'], notes: ['Cultural site protection noted.'] },
+    { id: 'D-70', name: 'Solapur', state: 'Maharashtra', phase: 'Phase 1', observer: 'Vikram Kumar', status: 'active', registeredVoters: 39200, maleVoters: 20100, femaleVoters: 18900, otherVoters: 200, pollingStations: [{ id: 'PS-7001', name: 'City Hall Center', boothNo: 'MH-48', registeredVoters: 1050, votesCast: 730 }, { id: 'PS-7002', name: 'Temple Area Hall', boothNo: 'MH-52', registeredVoters: 920, votesCast: 610 }], complaints: [], incidents: ['Cotton industry accommodation smooth.'], notes: ['Textile sector participation good.'] },
+    { id: 'D-71', name: 'Tumkur', state: 'Karnataka', phase: 'Phase 2', observer: 'Anitha Kumar', status: 'active', registeredVoters: 38900, maleVoters: 19800, femaleVoters: 18900, otherVoters: 200, pollingStations: [{ id: 'PS-7101', name: 'Town Center Hall', boothNo: 'KA-42', registeredVoters: 1050, votesCast: 720 }, { id: 'PS-7102', name: 'East Zone Center', boothNo: 'KA-46', registeredVoters: 920, votesCast: 610 }], complaints: [], incidents: ['Agricultural logistics smooth.'], notes: ['Rural participation excellent.'] },
+    { id: 'D-72', name: 'Kolar', state: 'Karnataka', phase: 'Phase 1', observer: 'Suresh Rao', status: 'active', registeredVoters: 36500, maleVoters: 18700, femaleVoters: 17600, otherVoters: 200, pollingStations: [{ id: 'PS-7201', name: 'Mining Area Center', boothNo: 'KA-50', registeredVoters: 1000, votesCast: 700 }, { id: 'PS-7202', name: 'City Market Hall', boothNo: 'KA-54', registeredVoters: 900, votesCast: 600 }], complaints: [], incidents: ['Mining operations managed well.'], notes: ['Worker safety coordination noted.'] },
+    { id: 'D-73', name: 'Belgaum', state: 'Karnataka', phase: 'Phase 2', observer: 'Divya Sharma', status: 'active', registeredVoters: 42300, maleVoters: 21700, femaleVoters: 20400, otherVoters: 200, pollingStations: [{ id: 'PS-7301', name: 'Old City Center', boothNo: 'KA-58', registeredVoters: 1120, votesCast: 790 }, { id: 'PS-7302', name: 'New Township Hall', boothNo: 'KA-62', registeredVoters: 1000, votesCast: 680 }], complaints: [], incidents: ['Educational institution coordination smooth.'], notes: ['Student engagement noted.'] },
+    { id: 'D-74', name: 'Dindigul', state: 'Tamil Nadu', phase: 'Phase 2', observer: 'Lakshmi Devi', status: 'active', registeredVoters: 38700, maleVoters: 19600, femaleVoters: 18900, otherVoters: 200, pollingStations: [{ id: 'PS-7401', name: 'Town Hall Center', boothNo: 'TN-40', registeredVoters: 1030, votesCast: 720 }, { id: 'PS-7402', name: 'Industrial Zone Hall', boothNo: 'TN-44', registeredVoters: 920, votesCast: 610 }], complaints: [], incidents: ['Lock manufacturing industry coordination good.'], notes: ['Industrial worker participation strong.'] },
+    { id: 'D-75', name: 'Tiruppur', state: 'Tamil Nadu', phase: 'Phase 1', observer: 'Ramesh Chandra', status: 'active', registeredVoters: 41200, maleVoters: 21000, femaleVoters: 20000, otherVoters: 200, pollingStations: [{ id: 'PS-7501', name: 'City Center Hall', boothNo: 'TN-48', registeredVoters: 1100, votesCast: 780 }, { id: 'PS-7502', name: 'Industrial Area Center', boothNo: 'TN-52', registeredVoters: 1000, votesCast: 680 }], complaints: [], incidents: ['Textile industry operations smooth.'], notes: ['Manufacturing sector participation excellent.'] },
+    { id: 'D-76', name: 'West Delhi', state: 'Delhi', phase: 'Phase 2', observer: 'Neha Kapoor', status: 'active', registeredVoters: 47200, maleVoters: 24100, femaleVoters: 22900, otherVoters: 200, pollingStations: [{ id: 'PS-7601', name: 'Sector 12 Center', boothNo: 'DL-35', registeredVoters: 1250, votesCast: 890 }, { id: 'PS-7602', name: 'Dwarka Hall', boothNo: 'DL-39', registeredVoters: 1100, votesCast: 760 }], complaints: [], incidents: ['Suburban area management effective.'], notes: ['Residential area participation good.'] },
+    { id: 'D-77', name: 'Siliguri', state: 'West Bengal', phase: 'Phase 1', observer: 'Arun Sharma', status: 'active', registeredVoters: 39800, maleVoters: 20300, femaleVoters: 19300, otherVoters: 200, pollingStations: [{ id: 'PS-7701', name: 'City Junction Hall', boothNo: 'WB-35', registeredVoters: 1080, votesCast: 750 }, { id: 'PS-7702', name: 'Hakimpara Center', boothNo: 'WB-39', registeredVoters: 950, votesCast: 640 }], complaints: [], incidents: ['Tea trade logistics smooth.'], notes: ['Border community participation noted.'] },
+    { id: 'D-78', name: 'Asansol', state: 'West Bengal', phase: 'Phase 2', observer: 'Supriya Das', status: 'active', registeredVoters: 42500, maleVoters: 21700, femaleVoters: 20600, otherVoters: 200, pollingStations: [{ id: 'PS-7801', name: 'Industrial Area Center', boothNo: 'WB-43', registeredVoters: 1150, votesCast: 810 }, { id: 'PS-7802', name: 'City Market Hall', boothNo: 'WB-47', registeredVoters: 1000, votesCast: 680 }], complaints: [], incidents: ['Steel manufacturing accommodated.'], notes: ['Industrial sector engagement good.'] },
+    { id: 'D-79', name: 'Bhavnagar', state: 'Gujarat', phase: 'Phase 2', observer: 'Kiran Patel', status: 'active', registeredVoters: 39600, maleVoters: 20200, femaleVoters: 19200, otherVoters: 200, pollingStations: [{ id: 'PS-7901', name: 'Port City Center', boothNo: 'GJ-34', registeredVoters: 1060, votesCast: 750 }, { id: 'PS-7902', name: 'City Market Hall', boothNo: 'GJ-38', registeredVoters: 920, votesCast: 610 }], complaints: [], incidents: ['Port operations coordination smooth.'], notes: ['Maritime community participation noted.'] },
+    { id: 'D-80', name: 'Junagadh', state: 'Gujarat', phase: 'Phase 1', observer: 'Yogesh Gupta', status: 'active', registeredVoters: 36800, maleVoters: 18800, femaleVoters: 17800, otherVoters: 200, pollingStations: [{ id: 'PS-8001', name: 'Heritage Area Center', boothNo: 'GJ-42', registeredVoters: 1000, votesCast: 710 }, { id: 'PS-8002', name: 'City Center Hall', boothNo: 'GJ-46', registeredVoters: 880, votesCast: 580 }], complaints: [], incidents: ['Heritage site protection maintained.'], notes: ['Cultural tourism coordination good.'] },
+    { id: 'D-81', name: 'Indore Urban', state: 'Madhya Pradesh', phase: 'Phase 2', observer: 'Harsh Singh', status: 'active', registeredVoters: 45800, maleVoters: 23400, femaleVoters: 22200, otherVoters: 200, pollingStations: [{ id: 'PS-8101', name: 'Central Area Center', boothNo: 'MP-17', registeredVoters: 1220, votesCast: 870 }, { id: 'PS-8102', name: 'Eastern Zone Hall', boothNo: 'MP-21', registeredVoters: 1100, votesCast: 750 }], complaints: [], incidents: ['City operations smooth.'], notes: ['Urban participation excellent.'] },
+    { id: 'D-82', name: 'Gwalior', state: 'Madhya Pradesh', phase: 'Phase 1', observer: 'Deepa Verma', status: 'active', registeredVoters: 41200, maleVoters: 21000, femaleVoters: 20000, otherVoters: 200, pollingStations: [{ id: 'PS-8201', name: 'Fort Area Center', boothNo: 'MP-25', registeredVoters: 1100, votesCast: 780 }, { id: 'PS-8202', name: 'City Market Hall', boothNo: 'MP-29', registeredVoters: 990, votesCast: 660 }], complaints: [], incidents: ['Heritage coordination smooth.'], notes: ['Historical site protection noted.'] },
+    { id: 'D-83', name: 'Bilaspur', state: 'Chhattisgarh', phase: 'Phase 2', observer: 'Ramesh Kumar', status: 'active', registeredVoters: 39800, maleVoters: 20400, femaleVoters: 19200, otherVoters: 200, pollingStations: [{ id: 'PS-8301', name: 'City Center Hall', boothNo: 'CG-11', registeredVoters: 1070, votesCast: 750 }, { id: 'PS-8302', name: 'Industrial Zone Center', boothNo: 'CG-15', registeredVoters: 950, votesCast: 640 }], complaints: [], incidents: ['Industry coordination good.'], notes: ['Mining area participation noted.'] },
+    { id: 'D-84', name: 'Durg', state: 'Chhattisgarh', phase: 'Phase 1', observer: 'Anita Das', status: 'active', registeredVoters: 40100, maleVoters: 20500, femaleVoters: 19400, otherVoters: 200, pollingStations: [{ id: 'PS-8401', name: 'Industrial Area Center', boothNo: 'CG-19', registeredVoters: 1080, votesCast: 760 }, { id: 'PS-8402', name: 'City Market Hall', boothNo: 'CG-23', registeredVoters: 960, votesCast: 640 }], complaints: [], incidents: ['Steel city operations smooth.'], notes: ['Industrial worker participation good.'] },
+    { id: 'D-85', name: 'Thiruvananthapuram Urban', state: 'Kerala', phase: 'Phase 2', observer: 'Vineeta Iyer', status: 'active', registeredVoters: 44200, maleVoters: 22300, femaleVoters: 21700, otherVoters: 200, pollingStations: [{ id: 'PS-8501', name: 'Capital City Center', boothNo: 'KL-19', registeredVoters: 1180, votesCast: 850 }, { id: 'PS-8502', name: 'Marketing Board Hall', boothNo: 'KL-23', registeredVoters: 1050, votesCast: 740 }], complaints: [], incidents: ['Urban operations smooth.'], notes: ['Urban participation excellent.'] },
+    { id: 'D-86', name: 'Kannur', state: 'Kerala', phase: 'Phase 1', observer: 'Rajesh Nair', status: 'active', registeredVoters: 37900, maleVoters: 19300, femaleVoters: 18400, otherVoters: 200, pollingStations: [{ id: 'PS-8601', name: 'Coastal City Center', boothNo: 'KL-27', registeredVoters: 1020, votesCast: 710 }, { id: 'PS-8602', name: 'Trade Center Hall', boothNo: 'KL-31', registeredVoters: 920, votesCast: 610 }], complaints: [], incidents: ['Port area coordination smooth.'], notes: ['Spice trade logistics noted.'] },
+    { id: 'D-87', name: 'Dhanbad', state: 'Jharkhand', phase: 'Phase 2', observer: 'Sumit Singh', status: 'active', registeredVoters: 43200, maleVoters: 22100, femaleVoters: 20900, otherVoters: 200, pollingStations: [{ id: 'PS-8701', name: 'Coal Mining Area Center', boothNo: 'JH-13', registeredVoters: 1150, votesCast: 820 }, { id: 'PS-8702', name: 'City Market Hall', boothNo: 'JH-17', registeredVoters: 1020, votesCast: 680 }], complaints: [], incidents: ['Mining operations accommodated.'], notes: ['Industrial worker participation strong.'] },
+    { id: 'D-88', name: 'Darbhanga', state: 'Bihar', phase: 'Phase 1', observer: 'Vikram Sharma', status: 'active', registeredVoters: 39600, maleVoters: 20200, femaleVoters: 19200, otherVoters: 200, pollingStations: [{ id: 'PS-8801', name: 'City Center Hall', boothNo: 'BR-18', registeredVoters: 1070, votesCast: 750 }, { id: 'PS-8802', name: 'Market Area Center', boothNo: 'BR-22', registeredVoters: 950, votesCast: 630 }], complaints: [], incidents: ['City operations smooth.'], notes: ['Agricultural community participation good.'] },
+    { id: 'D-89', name: 'Muzaffarpur', state: 'Bihar', phase: 'Phase 2', observer: 'Priya Sharma', status: 'active', registeredVoters: 40800, maleVoters: 20900, femaleVoters: 19700, otherVoters: 200, pollingStations: [{ id: 'PS-8901', name: 'City Center Hall', boothNo: 'BR-26', registeredVoters: 1100, votesCast: 770 }, { id: 'PS-8902', name: 'Market Area Center', boothNo: 'BR-30', registeredVoters: 1000, votesCast: 680 }], complaints: [], incidents: ['Agriculture coordination good.'], notes: ['Farming community participation noted.'] },
+    { id: 'D-90', name: 'Jharsuguda', state: 'Odisha', phase: 'Phase 1', observer: 'Anil Singh', status: 'active', registeredVoters: 37400, maleVoters: 19100, femaleVoters: 18100, otherVoters: 200, pollingStations: [{ id: 'PS-9001', name: 'Mining Area Center', boothNo: 'OD-20', registeredVoters: 1010, votesCast: 710 }, { id: 'PS-9002', name: 'City Center Hall', boothNo: 'OD-24', registeredVoters: 910, votesCast: 600 }], complaints: [], incidents: ['Mining operations accommodated.'], notes: ['Industrial worker participation good.'] }
   ]);
 
   const profileDetails = useMemo(() => ({
@@ -1716,8 +1740,8 @@ function DistrictObserverDashboard({ onLogout }) {
         <div className="header-left">
           <div className="header-logo">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="6" y="8" width="12" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M 9 12 L 11 14 L 15 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <rect x="6" y="8" width="12" height="10" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M 9 12 L 11 14 L 15 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
           <div className="header-info">
@@ -1726,13 +1750,88 @@ function DistrictObserverDashboard({ onLogout }) {
           </div>
         </div>
 
-        <div className="header-right">
-          <button className="profile-btn" onClick={() => setProfileOpen(true)} title="Profile">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M 12 14 C 9 14 3 15.34 3 18 L 3 20 L 21 20 L 21 18 C 21 15.34 15 14 12 14 Z" />
+        <nav className="header-nav">
+          <button
+            className={`nav-link ${activeTab === 'analysis' ? 'active' : ''}`}
+            onClick={() => setActiveTab('analysis')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3h7v9H3V3zm11 0h7v5h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+            Analysis
           </button>
+          <button
+            className={`nav-link ${activeTab === 'transparency' ? 'active' : ''}`}
+            onClick={() => setActiveTab('transparency')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Transparency
+          </button>
+          <button
+            className={`nav-link ${activeTab === 'analytics' ? 'active' : ''}`}
+            onClick={() => setActiveTab('analytics')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3h4v18H3V3zm7 4h4v14h-4V7zm7-2h4v16h-4V5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Analytics
+          </button>
+        </nav>
+
+        <div className="header-right">
+          <button 
+            className="profile-btn" 
+            onClick={() => setProfileOpen((prev) => !prev)} 
+            title="Profile"
+          >
+            Profile
+          </button>
+          
+          {profileOpen && (
+            <div className="observer-profile-popout">
+              <h3 className="observer-popout-title">Observer Profile</h3>
+              <div className="observer-popout-divider" />
+
+              <div className="observer-profile-avatar">AM</div>
+
+              <div className="observer-basic-info">
+                <p className="observer-name">{profileDetails.name}</p>
+                <p className="observer-role">{profileDetails.role}</p>
+                <p className="observer-status">Active & Monitoring</p>
+              </div>
+
+              <div className="observer-meta-info">
+                <div className="observer-info-item">
+                  <span className="observer-info-label">📧 Email</span>
+                  <span className="observer-info-value">{profileDetails.email}</span>
+                </div>
+                <div className="observer-info-item">
+                  <span className="observer-info-label">📞 Phone</span>
+                  <span className="observer-info-value">{profileDetails.phone}</span>
+                </div>
+                <div className="observer-info-item">
+                  <span className="observer-info-label">🗺️ Districts</span>
+                  <span className="observer-info-value">{profileDetails.assignedDistricts.join(', ')}</span>
+                </div>
+                <div className="observer-info-item">
+                  <span className="observer-info-label">🕐 Last Login</span>
+                  <span className="observer-info-value">{profileDetails.lastLogin}</span>
+                </div>
+              </div>
+
+              <div className="observer-profile-actions">
+                <button type="button" className="observer-action-btn" onClick={() => setProfileOpen(false)}>
+                  Close Profile
+                </button>
+                <button type="button" className="observer-action-btn observer-action-logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -1752,37 +1851,6 @@ function DistrictObserverDashboard({ onLogout }) {
             onDistrictChange={handleDistrictChange}
           />
 
-          <nav className="district-menu-bar">
-            <button
-              className={`menu-tab ${activeTab === 'analysis' ? 'active' : ''}`}
-              onClick={() => setActiveTab('analysis')}
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 3h7v9H3V3zm11 0h7v5h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>Districts Analysis and Breakdown</span>
-            </button>
-            <button
-              className={`menu-tab ${activeTab === 'transparency' ? 'active' : ''}`}
-              onClick={() => setActiveTab('transparency')}
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>Transparency and Monitoring</span>
-            </button>
-            <button
-              className={`menu-tab ${activeTab === 'analytics' ? 'active' : ''}`}
-              onClick={() => setActiveTab('analytics')}
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 3h4v18H3V3zm7 4h4v14h-4V7zm7-2h4v16h-4V5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>District Analytics</span>
-            </button>
-          </nav>
-
           {activeTab === 'analysis' && (
             <>
               <DistrictOverview
@@ -1792,18 +1860,17 @@ function DistrictObserverDashboard({ onLogout }) {
 
               <StatisticsCards stats={districtStats} />
 
-              <div className="district-grid">
-                <div className="district-left">
-                  <StationTable
-                    stations={selectedDistrict.pollingStations}
-                    selectedStationId={selectedStationId}
-                  />
-                  <ChartsSection
-                    stats={districtStats}
-                    stations={selectedDistrict.pollingStations}
-                    districtName={selectedDistrict.name}
-                  />
-                </div>
+              <StationTable
+                stations={selectedDistrict.pollingStations}
+                selectedStationId={selectedStationId}
+              />
+              
+              <div className="charts-section-centered">
+                <ChartsSection
+                  stats={districtStats}
+                  stations={selectedDistrict.pollingStations}
+                  districtName={selectedDistrict.name}
+                />
               </div>
             </>
           )}
@@ -1911,62 +1978,6 @@ function DistrictObserverDashboard({ onLogout }) {
           )}
         </div>
       </main>
-
-      {profileOpen && (
-        <div className="profile-modal-overlay" onClick={() => setProfileOpen(false)}>
-          <div className="profile-modal" onClick={(event) => event.stopPropagation()}>
-            <div className="profile-modal-header">
-              <div>
-                <h3 className="profile-title">Observer Profile</h3>
-                <p className="profile-subtitle">Your account details and assignment</p>
-              </div>
-              <button className="profile-close" onClick={() => setProfileOpen(false)} aria-label="Close profile">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="profile-modal-body">
-              <div className="profile-summary">
-                <div className="profile-avatar">AM</div>
-                <div>
-                  <h4>{profileDetails.name}</h4>
-                  <span className="profile-role">{profileDetails.role}</span>
-                </div>
-              </div>
-
-              <div className="profile-grid">
-                <div className="profile-item">
-                  <span className="profile-label">Email</span>
-                  <span className="profile-value">{profileDetails.email}</span>
-                </div>
-                <div className="profile-item">
-                  <span className="profile-label">Phone</span>
-                  <span className="profile-value">{profileDetails.phone}</span>
-                </div>
-                <div className="profile-item">
-                  <span className="profile-label">Assigned Districts</span>
-                  <span className="profile-value">{profileDetails.assignedDistricts.join(', ')}</span>
-                </div>
-                <div className="profile-item">
-                  <span className="profile-label">Last Login</span>
-                  <span className="profile-value">{profileDetails.lastLogin}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="profile-modal-footer">
-              <button className="profile-secondary" onClick={() => setProfileOpen(false)}>
-                Close
-              </button>
-              <button className="profile-primary" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

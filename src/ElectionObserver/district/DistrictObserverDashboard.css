@@ -67,10 +67,12 @@
 
 /* Search Card */
 .search-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(15px);
   border-radius: 16px;
   padding: 20px 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .search-header {
@@ -188,10 +190,12 @@
 
 /* District Overview */
 .district-overview {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(15px);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .overview-header {
@@ -267,10 +271,12 @@
 }
 
 .stat-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.9) 100%);
+  backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -329,10 +335,12 @@
 
 /* Station Table */
 .station-table {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(15px);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .station-table h3 {
@@ -395,10 +403,12 @@
 
 /* Charts Section */
 .charts-section {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(15px);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .charts-section h3 {
@@ -547,11 +557,18 @@
 }
 
 .panel-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.9) 100%);
+  backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-left: 4px solid #4f46e5;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.panel-card:hover {
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .panel-card h4 {
@@ -590,11 +607,12 @@
 }
 
 .analytics-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.9) 100%);
+  backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .analytics-card h3 {
@@ -736,6 +754,18 @@
   gap: 24px;
 }
 
+/* Charts Section Centered */
+.charts-section-centered {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.charts-section-centered .charts-section {
+  max-width: 900px;
+  width: 100%;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .district-grid {
@@ -792,6 +822,14 @@
 
   .stats-overview {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts-section-centered {
+    margin-top: 16px;
+  }
+
+  .charts-section-centered .charts-section {
+    max-width: 100%;
   }
 
   .station-bar,

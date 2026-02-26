@@ -4,7 +4,7 @@ import Dashboard from './Dashboard/Dashboard'
 import CitizenPortal from './Citizen/CitizenPortal'
 import AdminDashboard from './Admin/AdminDashboard'
 import DataAnalystsDashboard from './DataAnalysts/DataAnalystsDashboard'
-import DistrictObserverDashboard from './ElectionObserver/DistrictObserverDashboard'
+import ElectionObserverDashboard from './ElectionObserver/ElectionObserverDashboard'
 import ProtectedRoute from './ProtectedRoute'
 import './App.css'
 
@@ -66,7 +66,7 @@ function App() {
           path="/electionobserver"
           element={
             <ProtectedRoute allowedRoles={['electionobserver']} userRole={userRole}>
-              <DistrictObserverDashboard onLogout={handleLogout} />
+              <ElectionObserverDashboard onLogout={handleLogout} />
             </ProtectedRoute>
           }
         />

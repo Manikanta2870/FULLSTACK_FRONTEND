@@ -26,12 +26,13 @@
 
 /* Header Styles */
 .portal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1f2e;
   color: white;
   padding: 16px 30px;
   display: flex;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #FF9F43;
   position: sticky;
   top: 0;
   z-index: 100;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CitizenPortal.css';
 
@@ -753,6 +753,16 @@ function CitizenPortal({ onLogout }) {
     }
     return age;
   };
+
+  // Prevent scrolling when modals are open
+  useEffect(() => {
+    if (showProfileModal || showRegisterModal) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => document.body.classList.remove('modal-open');
+  }, [showProfileModal, showRegisterModal]);
 
   const handleRegisterChange = (field, value) => {
     setRegisterForm((prev) => ({
@@ -1652,14 +1662,44 @@ function CitizenPortal({ onLogout }) {
                         </div>
                         <div className="map-container">
                           <div className="map-preview">
-                            <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" className="map-illustration">
-                              <rect width="500" height="300" fill="#e8f4f8"/>
-                              <path d="M50,150 Q150,50 250,150 T450,150" stroke="#667eea" strokeWidth="3" fill="none"/>
-                              <circle cx="80" cy="120" r="8" fill="#667eea"/>
-                              <circle cx="250" cy="150" r="12" fill="#ff4444"/>
-                              <circle cx="420" cy="190" r="8" fill="#667eea"/>
-                              <text x="250" y="280" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#2c3e50">
-                                📍 Location: {selectedMapStation.address}
+                            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" className="map-illustration" preserveAspectRatio="xMidYMid meet">
+                              <rect width="500" height="500" fill="#e8f4f8"/>
+                              
+                              {/* Background pattern */}
+                              <defs>
+                                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                                  <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(102, 126, 234, 0.1)" strokeWidth="1"/>
+                                </pattern>
+                              </defs>
+                              <rect width="500" height="500" fill="url(#grid)"/>
+                              
+                              {/* Roads/paths */}
+                              <path d="M50,250 Q150,150 250,250 T450,250" stroke="#667eea" strokeWidth="4" fill="none" opacity="0.6"/>
+                              <path d="M250,50 L250,450" stroke="#667eea" strokeWidth="3" fill="none" opacity="0.4"/>
+                              <path d="M100,150 Q250,200 400,150" stroke="#764ba2" strokeWidth="3" fill="none" opacity="0.4"/>
+                              
+                              {/* Location markers */}
+                              <circle cx="100" cy="180" r="10" fill="#667eea" opacity="0.8"/>
+                              <circle cx="250" cy="250" r="16" fill="#ff4444" stroke="#ffffff" strokeWidth="3"/>
+                              <circle cx="400" cy="220" r="10" fill="#667eea" opacity="0.8"/>
+                              <circle cx="150" cy="350" r="10" fill="#667eea" opacity="0.8"/>
+                              <circle cx="350" cy="370" r="10" fill="#667eea" opacity="0.8"/>
+                              
+                              {/* Current location pulse effect */}
+                              <circle cx="250" cy="250" r="24" fill="none" stroke="#ff4444" strokeWidth="2" opacity="0.3">
+                                <animate attributeName="r" from="16" to="32" dur="1.5s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite"/>
+                              </circle>
+                              
+                              {/* Labels */}
+                              <text x="250" y="220" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#ff4444">
+                                Current Station
+                              </text>
+                              <text x="250" y="470" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#2c3e50">
+                                📍 {selectedMapStation.address}
+                              </text>
+                              <text x="250" y="40" textAnchor="middle" fontSize="16" fontWeight="600" fill="#667eea">
+                                Polling Station Map View
                               </text>
                             </svg>
                           </div>
