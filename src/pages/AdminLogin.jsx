@@ -11,7 +11,7 @@ function AdminLogin({ onLogin }) {
       registerPath={rolePaths.admin.registerPath}
       supportLabel="Contact Administrator"
       onLogin={onLogin}
-      autoLoginAfterRegister
+      autoLoginAfterRegister={false}
     />
   );
 }

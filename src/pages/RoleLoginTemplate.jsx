@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthLayout from './AuthLayout';
 
-const API_URL = import.meta.env.VITE_API_URL;
 const REGISTERED_USERS_KEY = 'emsRegisteredUsers';
 
 function getRegisteredUsers() {
@@ -50,6 +49,8 @@ function RoleLoginTemplate({
   const [loginError, setLoginError] = useState('');
   const [registrationError, setRegistrationError] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState('');
+
+  const isAdminRole = role === 'admin';
 
   const resetRegistrationState = () => {
     setRegistrationUsername('');
@@ -106,7 +107,34 @@ function RoleLoginTemplate({
     }
 
     try {
-      // Register user in localStorage
+      if (isAdminRole) {
+        const response = await fetch(registerPath, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          setRegistrationError(errorText || 'Registration failed. Please try again.');
+          return;
+        }
+
+        if (autoLoginAfterRegister) {
+          onLogin(role);
+          navigate(`/${role}`);
+          return;
+        }
+
+        resetRegistrationState();
+        setShowRegistration(false);
+        setRegistrationSuccess('Registration successful. Login with your registered details.');
+        return;
+      }
+
+      // Keep existing local registration flow for non-admin roles.
       const users = getRegisteredUsers();
       if (citizenMode) {
         users.push({
@@ -156,19 +184,39 @@ function RoleLoginTemplate({
         };
 
     try {
-      // Try to login with localStorage first
+      if (isAdminRole) {
+        const response = await fetch(loginPath, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          setLoginError(errorText || 'Wrong credentials');
+          return;
+        }
+
+        onLogin(role);
+        navigate(`/${role}`);
+        return;
+      }
+
+      // Existing local login flow for non-admin roles.
       const users = getRegisteredUsers();
       let userFound = false;
 
       if (citizenMode) {
-        userFound = users.some(user => 
+        userFound = users.some(user =>
           user.role === role &&
           user.username === payload.username &&
           user.aadhaarId === payload.aadhaarId &&
           user.password === payload.password
         );
       } else {
-        userFound = users.some(user => 
+        userFound = users.some(user =>
           user.role === role &&
           user.email === payload.email &&
           user.password === payload.password
@@ -181,7 +229,6 @@ function RoleLoginTemplate({
         return;
       }
 
-      // If not found in localStorage, try backend
       try {
         const response = await fetch(loginPath, {
           method: 'POST',
@@ -197,7 +244,6 @@ function RoleLoginTemplate({
           return;
         }
       } catch (err) {
-        // Backend not available, will show error below
         console.error('Backend login failed:', err);
       }
 
