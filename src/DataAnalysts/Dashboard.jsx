@@ -9,6 +9,24 @@ function Dashboard({ onLogout }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileDropdownRef = useRef(null);
 
+  const sampleDistricts = [
+    { name: 'Central District', registeredVoters: 12500, turnout: '78%', activeStations: 22 },
+    { name: 'North District', registeredVoters: 9800, turnout: '72%', activeStations: 16 },
+    { name: 'West District', registeredVoters: 8400, turnout: '69%', activeStations: 14 }
+  ];
+
+  const sampleStates = [
+    { name: 'Telangana', totalDistricts: 20, totalVoters: 180000, turnout: '75%' },
+    { name: 'Karnataka', totalDistricts: 30, totalVoters: 210000, turnout: '73%' },
+    { name: 'Maharashtra', totalDistricts: 35, totalVoters: 250000, turnout: '77%' }
+  ];
+
+  const sampleAnalytics = [
+    { title: 'Total Votes Counted', value: '1,875,000' },
+    { title: 'Average Turnout', value: '74.6%' },
+    { title: 'Pending Reports', value: '14' }
+  ];
+
   const analystProfile = {
     name: 'Data Analyst',
     email: 'analyst@system.com',
@@ -56,8 +74,24 @@ function Dashboard({ onLogout }) {
                 <p>Analyze election data by district</p>
               </div>
             </div>
-            <div style={{ padding: '20px', background: '#f0f9ff', borderRadius: '8px' }}>
-              <p>District-wise analytics and reports available here.</p>
+            <div style={{ display: 'grid', gap: '16px', marginTop: '20px' }}>
+              {sampleDistricts.map((district) => (
+                <div
+                  key={district.name}
+                  style={{
+                    padding: '18px',
+                    background: '#ffffff',
+                    borderRadius: '12px',
+                    border: '1px solid #e5e7eb',
+                    boxShadow: '0 2px 10px rgba(15, 23, 42, 0.05)'
+                  }}
+                >
+                  <h3 style={{ margin: '0 0 8px 0' }}>{district.name}</h3>
+                  <p style={{ margin: '6px 0' }}><strong>Registered Voters:</strong> {district.registeredVoters.toLocaleString()}</p>
+                  <p style={{ margin: '6px 0' }}><strong>Turnout:</strong> {district.turnout}</p>
+                  <p style={{ margin: '6px 0' }}><strong>Active Stations:</strong> {district.activeStations}</p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -70,8 +104,24 @@ function Dashboard({ onLogout }) {
                 <p>Analyze election data by state</p>
               </div>
             </div>
-            <div style={{ padding: '20px', background: '#f0f9ff', borderRadius: '8px' }}>
-              <p>State-wise analytics and reports available here.</p>
+            <div style={{ display: 'grid', gap: '16px', marginTop: '20px' }}>
+              {sampleStates.map((state) => (
+                <div
+                  key={state.name}
+                  style={{
+                    padding: '18px',
+                    background: '#ffffff',
+                    borderRadius: '12px',
+                    border: '1px solid #e5e7eb',
+                    boxShadow: '0 2px 10px rgba(15, 23, 42, 0.05)'
+                  }}
+                >
+                  <h3 style={{ margin: '0 0 8px 0' }}>{state.name}</h3>
+                  <p style={{ margin: '6px 0' }}><strong>Districts:</strong> {state.totalDistricts}</p>
+                  <p style={{ margin: '6px 0' }}><strong>Total Voters:</strong> {state.totalVoters.toLocaleString()}</p>
+                  <p style={{ margin: '6px 0' }}><strong>Turnout:</strong> {state.turnout}</p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -84,8 +134,22 @@ function Dashboard({ onLogout }) {
                 <p>In-depth election analysis and insights</p>
               </div>
             </div>
-            <div style={{ padding: '20px', background: '#f0f9ff', borderRadius: '8px' }}>
-              <p>Advanced analytics dashboard and tools available here.</p>
+            <div style={{ display: 'grid', gap: '16px', marginTop: '20px', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+              {sampleAnalytics.map((metric) => (
+                <div
+                  key={metric.title}
+                  style={{
+                    padding: '18px',
+                    background: '#ffffff',
+                    borderRadius: '12px',
+                    border: '1px solid #e5e7eb',
+                    boxShadow: '0 2px 10px rgba(15, 23, 42, 0.05)'
+                  }}
+                >
+                  <p style={{ margin: '0 0 8px 0', color: '#475569', fontWeight: 600 }}>{metric.title}</p>
+                  <h3 style={{ margin: 0 }}>{metric.value}</h3>
+                </div>
+              ))}
             </div>
           </div>
         );

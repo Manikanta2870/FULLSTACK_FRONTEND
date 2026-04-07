@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../AdminProfessional.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AddPollingStation({ onStationAdded }) {
   const [formData, setFormData] = useState({
     stationName: '',
@@ -28,29 +30,29 @@ function AddPollingStation({ onStationAdded }) {
     setMessage('');
 
     try {
-      // Validate required fields
       if (!formData.stationName || !formData.location || !formData.district) {
         setMessage('❌ Please fill all required fields');
         setLoading(false);
         return;
       }
 
-      // API call placeholder
-      // const response = await fetch(`${API_URL}/adminapi/polling-station`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
-
-      // For now, store in localStorage
-      const stations = JSON.parse(localStorage.getItem('pollingStations') || '[]');
-      const newStation = {
-        id: `STATION-${Date.now()}`,
+      const payload = {
         ...formData,
-        createdAt: new Date().toISOString()
+        capacity: formData.capacity ? parseInt(formData.capacity) : null
       };
-      stations.push(newStation);
-      localStorage.setItem('pollingStations', JSON.stringify(stations));
+
+      const response = await fetch(`${API_URL}/adminapi/polling-station/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const text = await response.text();
+
+      if (!response.ok) {
+        setMessage(`❌ ${text || 'Error adding polling station'}`);
+        return;
+      }
 
       setMessage('✅ Polling station added successfully!');
       setFormData({
@@ -63,10 +65,9 @@ function AddPollingStation({ onStationAdded }) {
       });
 
       if (onStationAdded) onStationAdded();
-
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      setMessage('❌ Error adding polling station');
+      setMessage('❌ Error connecting to server');
     } finally {
       setLoading(false);
     }

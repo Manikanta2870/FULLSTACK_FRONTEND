@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import '../AdminProfessional.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AddObserver({ onObserverAdded }) {
   const [formData, setFormData] = useState({
     observerName: '',
     email: '',
+    password: '',
     phone: '',
     district: '',
     assignedStation: '',
@@ -28,25 +31,30 @@ function AddObserver({ onObserverAdded }) {
     setMessage('');
 
     try {
-      if (!formData.observerName || !formData.email || !formData.phone) {
+      if (!formData.observerName || !formData.email || !formData.phone || !formData.password) {
         setMessage('❌ Please fill all required fields');
         setLoading(false);
         return;
       }
 
-      const observers = JSON.parse(localStorage.getItem('observers') || '[]');
-      const newObserver = {
-        id: `OBS-${Date.now()}`,
-        ...formData,
-        createdAt: new Date().toISOString()
-      };
-      observers.push(newObserver);
-      localStorage.setItem('observers', JSON.stringify(observers));
+      const response = await fetch(`${API_URL}/adminapi/observer/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const text = await response.text();
+
+      if (!response.ok) {
+        setMessage(`❌ ${text || 'Error adding observer'}`);
+        return;
+      }
 
       setMessage('✅ Observer added successfully!');
       setFormData({
         observerName: '',
         email: '',
+        password: '',
         phone: '',
         district: '',
         assignedStation: '',
@@ -54,10 +62,9 @@ function AddObserver({ onObserverAdded }) {
       });
 
       if (onObserverAdded) onObserverAdded();
-
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      setMessage('❌ Error adding observer');
+      setMessage('❌ Error connecting to server');
     } finally {
       setLoading(false);
     }
@@ -102,6 +109,18 @@ function AddObserver({ onObserverAdded }) {
 
         <div className="form-row">
           <div className="form-group">
+            <label>Password *</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
             <label>Phone *</label>
             <input
               type="tel"
@@ -112,7 +131,9 @@ function AddObserver({ onObserverAdded }) {
               required
             />
           </div>
+        </div>
 
+        <div className="form-row">
           <div className="form-group">
             <label>District</label>
             <input
@@ -123,9 +144,7 @@ function AddObserver({ onObserverAdded }) {
               onChange={handleChange}
             />
           </div>
-        </div>
 
-        <div className="form-row">
           <div className="form-group">
             <label>Assigned Station</label>
             <input
@@ -136,7 +155,9 @@ function AddObserver({ onObserverAdded }) {
               onChange={handleChange}
             />
           </div>
+        </div>
 
+        <div className="form-row">
           <div className="form-group">
             <label>Status</label>
             <select name="status" value={formData.status} onChange={handleChange}>

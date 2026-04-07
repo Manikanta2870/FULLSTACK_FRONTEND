@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import '../AdminProfessional.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AddDataAnalyst({ onAnalystAdded }) {
   const [formData, setFormData] = useState({
     analystName: '',
     email: '',
+    password: '',
     phone: '',
     expertise: '',
     assignedDistrict: '',
@@ -28,25 +31,30 @@ function AddDataAnalyst({ onAnalystAdded }) {
     setMessage('');
 
     try {
-      if (!formData.analystName || !formData.email || !formData.phone) {
+      if (!formData.analystName || !formData.email || !formData.phone || !formData.password) {
         setMessage('❌ Please fill all required fields');
         setLoading(false);
         return;
       }
 
-      const analysts = JSON.parse(localStorage.getItem('dataAnalysts') || '[]');
-      const newAnalyst = {
-        id: `ANALYST-${Date.now()}`,
-        ...formData,
-        createdAt: new Date().toISOString()
-      };
-      analysts.push(newAnalyst);
-      localStorage.setItem('dataAnalysts', JSON.stringify(analysts));
+      const response = await fetch(`${API_URL}/adminapi/analyst/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const text = await response.text();
+
+      if (!response.ok) {
+        setMessage(`❌ ${text || 'Error adding analyst'}`);
+        return;
+      }
 
       setMessage('✅ Data Analyst added successfully!');
       setFormData({
         analystName: '',
         email: '',
+        password: '',
         phone: '',
         expertise: '',
         assignedDistrict: '',
@@ -54,10 +62,9 @@ function AddDataAnalyst({ onAnalystAdded }) {
       });
 
       if (onAnalystAdded) onAnalystAdded();
-
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      setMessage('❌ Error adding analyst');
+      setMessage('❌ Error connecting to server');
     } finally {
       setLoading(false);
     }
@@ -102,6 +109,18 @@ function AddDataAnalyst({ onAnalystAdded }) {
 
         <div className="form-row">
           <div className="form-group">
+            <label>Password *</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
             <label>Phone *</label>
             <input
               type="tel"
@@ -112,7 +131,9 @@ function AddDataAnalyst({ onAnalystAdded }) {
               required
             />
           </div>
+        </div>
 
+        <div className="form-row">
           <div className="form-group">
             <label>Expertise</label>
             <input
@@ -123,9 +144,7 @@ function AddDataAnalyst({ onAnalystAdded }) {
               onChange={handleChange}
             />
           </div>
-        </div>
 
-        <div className="form-row">
           <div className="form-group">
             <label>Assigned District</label>
             <input
@@ -136,7 +155,9 @@ function AddDataAnalyst({ onAnalystAdded }) {
               onChange={handleChange}
             />
           </div>
+        </div>
 
+        <div className="form-row">
           <div className="form-group">
             <label>Status</label>
             <select name="status" value={formData.status} onChange={handleChange}>

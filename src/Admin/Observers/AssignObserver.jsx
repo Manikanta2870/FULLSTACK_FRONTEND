@@ -1,45 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import '../AdminProfessional.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AssignObserver() {
   const [observers, setObservers] = useState([]);
   const [stations, setStations] = useState([]);
   const [selectedObserver, setSelectedObserver] = useState('');
   const [selectedStation, setSelectedStation] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadData();
   }, []);
 
-  const loadData = () => {
-    const obs = JSON.parse(localStorage.getItem('observers') || '[]');
-    const stat = JSON.parse(localStorage.getItem('pollingStations') || '[]');
-    setObservers(obs);
-    setStations(stat);
+  const loadData = async () => {
+    try {
+      const [obsRes, statRes] = await Promise.all([
+        fetch(`${API_URL}/adminapi/observer/all`),
+        fetch(`${API_URL}/adminapi/polling-station/all`)
+      ]);
+
+      if (obsRes.ok) {
+        const obsData = await obsRes.json();
+        setObservers(obsData);
+      }
+
+      if (statRes.ok) {
+        const statData = await statRes.json();
+        setStations(statData);
+      }
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    }
   };
 
-  const handleAssign = (e) => {
+  const handleAssign = async (e) => {
     e.preventDefault();
-    
+
     if (!selectedObserver || !selectedStation) {
       setMessage('❌ Please select both observer and station');
       return;
     }
 
-    const updated = observers.map(obs => 
-      obs.id === selectedObserver 
-        ? { ...obs, assignedStation: selectedStation }
-        : obs
-    );
-    
-    localStorage.setItem('observers', JSON.stringify(updated));
-    setObservers(updated);
-    setMessage('✅ Observer assigned successfully!');
-    setSelectedObserver('');
-    setSelectedStation('');
-    
-    setTimeout(() => setMessage(''), 3000);
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/adminapi/observer/assign-station`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: selectedObserver, assignedStation: selectedStation })
+      });
+
+      const text = await response.text();
+
+      if (!response.ok) {
+        setMessage(`❌ ${text || 'Assignment failed'}`);
+        return;
+      }
+
+      setMessage('✅ Observer assigned successfully!');
+      setSelectedObserver('');
+      setSelectedStation('');
+      loadData();
+      setTimeout(() => setMessage(''), 3000);
+    } catch (error) {
+      setMessage('❌ Error connecting to server');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,8 +92,8 @@ function AssignObserver() {
             >
               <option value="">-- Choose Observer --</option>
               {observers.map(obs => (
-                <option key={obs.id} value={obs.id}>
-                  {obs.observerName} ({obs.email})
+                <option key={obs.email} value={obs.email}>
+                  {obs.observerName || obs.email} ({obs.email})
                 </option>
               ))}
             </select>
@@ -79,7 +108,7 @@ function AssignObserver() {
             >
               <option value="">-- Choose Station --</option>
               {stations.map(station => (
-                <option key={station.id} value={station.id}>
+                <option key={station.id} value={station.stationName}>
                   {station.stationName} - {station.location}
                 </option>
               ))}
@@ -87,8 +116,8 @@ function AssignObserver() {
           </div>
         </div>
 
-        <button type="submit" className="admin-btn btn-primary">
-          ✓ Assign Observer
+        <button type="submit" className="admin-btn btn-primary" disabled={loading}>
+          {loading ? '⏳ Assigning...' : '✓ Assign Observer'}
         </button>
       </form>
 
@@ -99,8 +128,8 @@ function AssignObserver() {
         ) : (
           <ul>
             {observers.filter(o => o.assignedStation).map(obs => (
-              <li key={obs.id}>
-                <strong>{obs.observerName}</strong> → {obs.assignedStation}
+              <li key={obs.email}>
+                <strong>{obs.observerName || obs.email}</strong> → {obs.assignedStation}
               </li>
             ))}
           </ul>

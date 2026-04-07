@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../AdminProfessional.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AssignDistrict() {
   const [analysts, setAnalysts] = useState([]);
   const [selectedAnalyst, setSelectedAnalyst] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const districts = [
     'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai',
@@ -16,32 +19,62 @@ function AssignDistrict() {
     loadAnalysts();
   }, []);
 
-  const loadAnalysts = () => {
-    const analysts = JSON.parse(localStorage.getItem('dataAnalysts') || '[]');
-    setAnalysts(analysts);
+  const loadAnalysts = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/adminapi/analyst/all`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        setMessage(`❌ Failed to load analysts: ${errorText || response.statusText}`);
+        setAnalysts([]);
+        return;
+      }
+      const data = await response.json();
+      if (!data || data.length === 0) {
+        setMessage('❌ No analysts found. Add a Data Analyst first.');
+      }
+      setAnalysts(data || []);
+    } catch (error) {
+      setMessage('❌ Error connecting to server');
+      setAnalysts([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAssign = (e) => {
+  const handleAssign = async (e) => {
     e.preventDefault();
-    
+
     if (!selectedAnalyst || !selectedDistrict) {
       setMessage('❌ Please select both analyst and district');
       return;
     }
 
-    const updated = analysts.map(analyst => 
-      analyst.id === selectedAnalyst 
-        ? { ...analyst, assignedDistrict: selectedDistrict }
-        : analyst
-    );
-    
-    localStorage.setItem('dataAnalysts', JSON.stringify(updated));
-    setAnalysts(updated);
-    setMessage('✅ District assigned successfully!');
-    setSelectedAnalyst('');
-    setSelectedDistrict('');
-    
-    setTimeout(() => setMessage(''), 3000);
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/adminapi/analyst/assign-district`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: selectedAnalyst, district: selectedDistrict })
+      });
+
+      const text = await response.text();
+
+      if (!response.ok) {
+        setMessage(`❌ ${text || 'Assignment failed'}`);
+        return;
+      }
+
+      setMessage('✅ District assigned successfully!');
+      setSelectedAnalyst('');
+      setSelectedDistrict('');
+      loadAnalysts();
+      setTimeout(() => setMessage(''), 3000);
+    } catch (error) {
+      setMessage('❌ Error connecting to server');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,8 +98,8 @@ function AssignDistrict() {
             >
               <option value="">-- Choose Analyst --</option>
               {analysts.map(analyst => (
-                <option key={analyst.id} value={analyst.id}>
-                  {analyst.analystName} ({analyst.email})
+                <option key={analyst.email} value={analyst.email}>
+                  {analyst.analystName || analyst.email} ({analyst.email})
                 </option>
               ))}
             </select>
@@ -89,8 +122,8 @@ function AssignDistrict() {
           </div>
         </div>
 
-        <button type="submit" className="admin-btn btn-primary">
-          ✓ Assign District
+        <button type="submit" className="admin-btn btn-primary" disabled={loading}>
+          {loading ? '⏳ Assigning...' : '✓ Assign District'}
         </button>
       </form>
 
@@ -101,8 +134,8 @@ function AssignDistrict() {
         ) : (
           <ul>
             {analysts.filter(a => a.assignedDistrict).map(analyst => (
-              <li key={analyst.id}>
-                <strong>{analyst.analystName}</strong> → {analyst.assignedDistrict}
+              <li key={analyst.email}>
+                <strong>{analyst.analystName || analyst.email}</strong> → {analyst.assignedDistrict}
               </li>
             ))}
           </ul>
